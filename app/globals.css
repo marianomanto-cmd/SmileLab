@@ -1,0 +1,611 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Smile Lab — design tokens (HANDOFF §3)
+   Los valores son los medidos sobre source/Smile Lab.dc.html. No aproximar.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Base */
+  --color-bg: #f6fafa;
+  --color-surface: #ffffff;
+  --color-line: #e6f1f1;
+  --color-line-strong: #e2eeef;
+  --color-line-soft: #eef5f5;
+  --color-photo: #cfe6e6;
+
+  /* Tinta */
+  --color-ink: #22343a;
+  --color-body: #51666b;
+  --color-muted: #5f7276;
+  --color-muted2: #5d7075;
+
+  /* Acento */
+  --color-accent: #8cc3c8;
+  --color-accent-hover: #6fb0b7;
+  --color-accent-soft: #bfdfe0;
+  --color-accent-pale: #cfe6e6;
+  --color-accent-deep: #a9d3d5;
+  --color-accent-ink: #3c757c;
+  --color-accent-italic: #4d9199;
+  --color-nav-hover: #e7f3f4;
+  --color-on-accent: #1b2c31;
+  --color-btn-line: #d4e8e9;
+  --color-cta-body: #2b3f45;
+
+  /* Banda oscura */
+  --color-dark: #22343a;
+  --color-dark-deep: #0f1d21;
+  --color-dark-body: #b9cbce;
+  --color-dark-line: #3a4d53;
+  --color-dark-line2: #2e4046;
+  --color-dark-line3: #46595f;
+  --color-footer-link: #d3e2e4;
+  --color-footer-label: #9cb2b6;
+
+  /* Marca */
+  --color-brand-violet: #7d8ac8;
+  --color-brand-violet-light: #b3bce7;
+
+  /* Reseñas */
+  --color-star: #8a6508;
+  --color-avatar-bg: #dcecec;
+  --color-avatar-ink: #2b5f65;
+  /* El diseño pone #a8c2c4 en el «/» que separa tag y tiempo de lectura, pero da
+     1.88:1 sobre blanco. El checklist §12 exige ≥4.5:1 en todo texto y ningún teal
+     claro llega: hay que bajar hasta el nivel de `muted2`. Se usa ese (5.2:1).
+     Para volver al valor del diseño: #a8c2c4 (el span ya va aria-hidden). */
+  --color-slash: #5d7075;
+
+  /* Tipografías */
+  --font-display: var(--font-jost), system-ui, sans-serif;
+  --font-body: var(--font-hanken), system-ui, sans-serif;
+
+  /* Radios (HANDOFF §5) */
+  --radius-pill: 999px;
+  --radius-panel: 28px;
+  --radius-card: 22px;
+  --radius-card-sm: 20px;
+  --radius-tile: 18px;
+  --radius-aside: 24px;
+  --radius-map: 16px;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-body);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  img {
+    display: block;
+  }
+
+  iframe {
+    display: block;
+    border: 0;
+  }
+
+  /* §7.4 — falta en el diseño, obligatorio en producción */
+  :focus-visible {
+    outline: 2px solid var(--color-accent-ink);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* ---------------------------------------------------------------------------
+     Escala tipográfica (HANDOFF §4)
+     Interpola entre la escala mobile (390px) y la desktop (1180px).
+  --------------------------------------------------------------------------- */
+  :root {
+    --fluid-span: 790; /* 1180 - 390 */
+  }
+
+  .t-display,
+  .t-kicker,
+  .t-label,
+  .t-lead,
+  .t-stat,
+  .t-faq-q,
+  .t-sede-phone {
+    font-family: var(--font-display);
+  }
+
+  /* Títulos ------------------------------------------------------------------ */
+  .t-h1-hero,
+  .t-h1-page,
+  .t-h1-treatment,
+  .t-h1-post {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .t-h1-hero {
+    font-size: clamp(36px, calc(36px + 26 * (100vw - 390px) / var(--fluid-span)), 62px);
+  }
+  .t-h1-page {
+    font-size: clamp(36px, calc(36px + 18 * (100vw - 390px) / var(--fluid-span)), 54px);
+  }
+  .t-h1-treatment {
+    font-size: clamp(36px, calc(36px + 12 * (100vw - 390px) / var(--fluid-span)), 48px);
+  }
+  .t-h1-post {
+    font-size: clamp(36px, calc(36px + 10 * (100vw - 390px) / var(--fluid-span)), 46px);
+  }
+
+  .t-h2-section,
+  .t-h2-section-sm,
+  .t-h2-panel {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.005em;
+    line-height: 1.15;
+  }
+
+  .t-h2-section {
+    font-size: clamp(28px, calc(28px + 14 * (100vw - 390px) / var(--fluid-span)), 42px);
+  }
+  .t-h2-section-sm {
+    font-size: clamp(28px, calc(28px + 12 * (100vw - 390px) / var(--fluid-span)), 40px);
+  }
+  .t-h2-panel {
+    font-size: clamp(26px, calc(26px + 10 * (100vw - 390px) / var(--fluid-span)), 36px);
+  }
+
+  .t-h2-article {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+    font-size: clamp(22px, calc(22px + 4 * (100vw - 390px) / var(--fluid-span)), 26px);
+  }
+
+  .t-h3-sede,
+  .t-h3-card,
+  .t-h3-post,
+  .t-h3-step {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+
+  .t-h3-sede {
+    line-height: 1.25;
+    font-size: clamp(21px, calc(21px + 3 * (100vw - 390px) / var(--fluid-span)), 24px);
+  }
+  .t-h3-card {
+    line-height: 1.25;
+    font-size: clamp(19px, calc(19px + 3 * (100vw - 390px) / var(--fluid-span)), 22px);
+  }
+  .t-h3-post {
+    line-height: 1.3;
+    font-size: clamp(19px, calc(19px + 2 * (100vw - 390px) / var(--fluid-span)), 21px);
+  }
+  .t-h3-step {
+    line-height: 1.3;
+    font-size: clamp(17px, calc(17px + 2 * (100vw - 390px) / var(--fluid-span)), 19px);
+  }
+
+  @media (min-width: 1024px) {
+    .t-h1-hero {
+      line-height: 1.05;
+    }
+    .t-h1-page {
+      line-height: 1.06;
+    }
+    .t-h1-treatment,
+    .t-h1-post {
+      line-height: 1.08;
+    }
+    .t-h2-section,
+    .t-h2-section-sm {
+      line-height: 1.12;
+    }
+  }
+
+  /* Kickers y labels --------------------------------------------------------- */
+  .t-kicker {
+    font-weight: 400;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--color-accent-ink);
+    letter-spacing: 0.24em;
+    font-size: clamp(10.5px, calc(10.5px + 1 * (100vw - 390px) / var(--fluid-span)), 11.5px);
+  }
+
+  @media (min-width: 1024px) {
+    .t-kicker {
+      letter-spacing: 0.26em;
+    }
+  }
+
+  .t-kicker-card {
+    font-weight: 400;
+    line-height: 1;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-accent-ink);
+  }
+
+  .t-label {
+    font-weight: 400;
+    line-height: 1;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-muted2);
+  }
+
+  /* Cuerpo ------------------------------------------------------------------- */
+  .t-lead {
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-accent-ink);
+    font-size: clamp(17px, calc(17px + 3 * (100vw - 390px) / var(--fluid-span)), 20px);
+  }
+
+  .t-stat {
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-ink);
+    font-size: clamp(22px, calc(22px + 5 * (100vw - 390px) / var(--fluid-span)), 27px);
+  }
+
+  .t-faq-q {
+    font-weight: 400;
+    line-height: 1.3;
+    font-size: clamp(16.5px, calc(16.5px + 2 * (100vw - 390px) / var(--fluid-span)), 18.5px);
+  }
+
+  .t-body-hero {
+    line-height: 1.7;
+    font-size: clamp(15.5px, calc(15.5px + 2.5 * (100vw - 390px) / var(--fluid-span)), 18px);
+  }
+
+  .t-body {
+    line-height: 1.7;
+    font-size: clamp(15.5px, calc(15.5px + 1.5 * (100vw - 390px) / var(--fluid-span)), 17px);
+  }
+
+  .t-body-article {
+    line-height: 1.85;
+    font-size: clamp(15.5px, calc(15.5px + 1.5 * (100vw - 390px) / var(--fluid-span)), 17px);
+  }
+
+  .t-post-lead {
+    line-height: 1.7;
+    font-size: clamp(17px, calc(17px + 2 * (100vw - 390px) / var(--fluid-span)), 19px);
+  }
+
+  .t-card {
+    line-height: 1.6;
+    font-size: clamp(14.5px, calc(14.5px + 0.5 * (100vw - 390px) / var(--fluid-span)), 15px);
+  }
+
+  .t-card-dense {
+    line-height: 1.65;
+    font-size: 14.5px;
+  }
+
+  .t-card-wide {
+    line-height: 1.65;
+    font-size: clamp(14.5px, calc(14.5px + 1 * (100vw - 390px) / var(--fluid-span)), 15.5px);
+  }
+
+  .t-review {
+    line-height: 1.7;
+    font-size: clamp(14.5px, calc(14.5px + 1 * (100vw - 390px) / var(--fluid-span)), 15.5px);
+  }
+
+  .t-sede-phone {
+    font-weight: 400;
+    line-height: 1;
+    font-size: clamp(17px, calc(17px + 1 * (100vw - 390px) / var(--fluid-span)), 18px);
+  }
+
+  .t-italic {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-accent-italic);
+  }
+
+  /* ---------------------------------------------------------------------------
+     Layout (HANDOFF §2)
+  --------------------------------------------------------------------------- */
+  .container-sl {
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-inline: clamp(18px, calc(18px + 10 * (100vw - 390px) / var(--fluid-span)), 28px);
+  }
+
+  /* Ritmo entre secciones: 44px mobile → 100px desktop */
+  .section {
+    padding-top: clamp(44px, calc(44px + 56 * (100vw - 390px) / var(--fluid-span)), 100px);
+  }
+
+  /* Primera sección de una página interna: 28px → 70px */
+  .section-first {
+    padding-top: clamp(28px, calc(28px + 42 * (100vw - 390px) / var(--fluid-span)), 70px);
+  }
+
+  /* Hero de la home: 28px → 80px */
+  .section-hero {
+    padding-top: clamp(28px, calc(28px + 52 * (100vw - 390px) / var(--fluid-span)), 80px);
+  }
+
+  /* Banda de pilares, pegada al hero: 32px → 68px */
+  .section-tight {
+    padding-top: clamp(32px, calc(32px + 36 * (100vw - 390px) / var(--fluid-span)), 68px);
+  }
+
+  /* ---------------------------------------------------------------------------
+     Componentes
+  --------------------------------------------------------------------------- */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+
+  .card-link {
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .card-link:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 16px 34px -22px rgba(34, 52, 58, 0.4);
+  }
+
+  /* §8 — la trampa de layout: la img va absoluta dentro del contenedor
+     con aspect-ratio, nunca en flujo. */
+  .photo {
+    position: relative;
+    flex: 0 0 auto;
+    background: var(--color-photo);
+    overflow: hidden;
+  }
+
+  .photo > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    min-height: 44px;
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+
+  .link-quiet {
+    color: var(--color-accent-ink);
+    transition: color 0.18s ease;
+  }
+
+  .link-quiet:hover {
+    color: var(--color-ink);
+  }
+
+  /* Grupo de CTAs. En el diseño mobile TODO botón es display:block a ancho
+     completo, apilado con 10px; desde sm vuelve a ser una fila que envuelve. */
+  .cta-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cta-group > * {
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .cta-group {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cta-group > * {
+      width: auto;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Animaciones (HANDOFF §7)
+--------------------------------------------------------------------------- */
+@keyframes slfade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slhero {
+  0%,
+  11% {
+    transform: translateX(0);
+  }
+  14.28%,
+  25.28% {
+    transform: translateX(-14.2857%);
+  }
+  28.57%,
+  39.57% {
+    transform: translateX(-28.5714%);
+  }
+  42.85%,
+  53.85% {
+    transform: translateX(-42.8571%);
+  }
+  57.14%,
+  68.14% {
+    transform: translateX(-57.1428%);
+  }
+  71.42%,
+  82.42% {
+    transform: translateX(-71.4285%);
+  }
+  85.71%,
+  100% {
+    transform: translateX(-85.7142%);
+  }
+}
+
+@keyframes slmarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.anim-fade {
+  animation: slfade 0.2s ease;
+}
+
+@media (min-width: 1024px) {
+  .anim-fade {
+    animation-duration: 0.22s;
+  }
+}
+
+/* §7.1 — 7 slides para 6 fotos: la primera se repite al final. */
+.hero-track {
+  display: flex;
+  width: 700%;
+  height: 100%;
+  animation: slhero 45s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.hero-slide {
+  position: relative;
+  width: 14.2857%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+/* §7.2 — lista duplicada, se traslada -50%: loop continuo sin salto. */
+.marquee-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: slmarquee 58s linear infinite;
+}
+
+@media (min-width: 1024px) {
+  .marquee-track {
+    gap: 18px;
+    animation-duration: 70s;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* §12 — prefers-reduced-motion corta carrusel y marquesina. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .anim-fade {
+    animation: none;
+  }
+
+  .hero-track {
+    animation: none;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  .marquee-viewport {
+    overflow-x: auto;
+  }
+}
+
+@layer components {
+  /* ---------------------------------------------------------------------------
+     Masthead
+     Mobile apila texto → foto → stats; desktop pone la foto al costado y la
+     columna de texto (con los stats abajo) centrada contra ella.
+  --------------------------------------------------------------------------- */
+  .hero-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-areas:
+      'text'
+      'photo'
+      'stats';
+  }
+
+  .hero-text {
+    grid-area: text;
+  }
+  .hero-photo {
+    grid-area: photo;
+  }
+  .hero-stats {
+    grid-area: stats;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-grid {
+      gap: 40px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+      grid-template-areas:
+        'text photo'
+        'stats photo';
+      align-content: center;
+    }
+
+    .hero-photo {
+      align-self: center;
+      /* §2 — el diamante se corta contra el borde derecho de la ventana.
+         No reemplazar por un calc() con vw: en anchos medianos deja de sangrar. */
+      margin-right: -88px;
+    }
+  }
+}
