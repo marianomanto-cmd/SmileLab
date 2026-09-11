@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Logo } from './Logo';
 import { Button } from './Button';
 import { links, nav, navMobile } from '@/content/site';
@@ -111,33 +112,41 @@ export function Header() {
         </button>
       </div>
 
-      {open && (
-        <div
-          id="menu-mobile"
-          ref={panelRef}
-          className="anim-fade fixed inset-x-0 bottom-0 top-[58px] z-40 overflow-y-auto bg-bg px-[18px] py-6 lg:hidden"
-        >
-          <nav aria-label="Principal" className="flex flex-col">
-            {navMobile.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-                className="border-b border-line-strong px-1 py-4 font-display text-[26px] font-light text-ink"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+      {/* El overlay se monta en <body> con un portal, NO dentro del <header>.
+          El header tiene backdrop-filter, y un elemento con backdrop-filter crea
+          un containing block para sus descendientes position:fixed: dentro del
+          header, el overlay se resolvía contra la caja de 58px del header en vez
+          de contra el viewport y quedaba como una franja de 48px con los links
+          tapados por el hero. */}
+      {open &&
+        createPortal(
+          <div
+            id="menu-mobile"
+            ref={panelRef}
+            className="anim-fade fixed inset-x-0 bottom-0 top-[58px] z-40 overflow-y-auto bg-bg px-[18px] py-6 lg:hidden"
+          >
+            <nav aria-label="Principal" className="flex flex-col">
+              {navMobile.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                  className="border-b border-line-strong px-1 py-4 font-display text-[26px] font-light text-ink"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
 
-          <Button href={links.agenda} external block className="mt-7 text-base">
-            Sacar turno online
-          </Button>
-          <Button href={links.whatsapp} external variant="secondary" block className="mt-2.5 text-base">
-            Consultar por WhatsApp
-          </Button>
-        </div>
-      )}
+            <Button href={links.agenda} external block className="mt-7 text-base">
+              Sacar turno online
+            </Button>
+            <Button href={links.whatsapp} external variant="secondary" block className="mt-2.5 text-base">
+              Consultar por WhatsApp
+            </Button>
+          </div>,
+          document.body
+        )}
     </header>
   );
 }
