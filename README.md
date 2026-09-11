@@ -16,6 +16,7 @@ base de datos ni auth.**
 | Imágenes | `next/image`, salvo el masthead (ver abajo) |
 | Animación | CSS puro (`@keyframes`), sin librerías |
 | Contenido | Datos tipados en `/content/*.ts` |
+| Analítica | GA4 + los 3 eventos de conversión del §1 |
 | Deploy | Vercel |
 
 ## Correr el proyecto
@@ -33,11 +34,32 @@ npm run lint
 
 ```bash
 NEXT_PUBLIC_SITE_URL=https://smilelab.com.ar
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX        # opcional
 ```
 
-Se usa para canonicals, Open Graph, `sitemap.xml` y los `@id` del JSON-LD.
-Sin ella cae al default de `content/site.ts`. **Ponerla antes del primer deploy**
-o los canonicals van a apuntar al dominio equivocado.
+`NEXT_PUBLIC_SITE_URL` se usa para canonicals, Open Graph, `sitemap.xml` y los `@id`
+del JSON-LD. Sin ella cae al default de `content/site.ts`. **Ponerla antes del primer
+deploy** o los canonicals van a apuntar al dominio equivocado.
+
+`NEXT_PUBLIC_GA_ID` activa GA4. Sin ella no se carga ningún script de terceros, así que
+dev y preview quedan limpios. Las dos son `NEXT_PUBLIC_*`: se inlinean **en build**, no
+en runtime — cambiarlas exige redeploy.
+
+## Analítica
+
+No hay checkout: los únicos eventos de conversión son los tres clics que sacan al usuario
+hacia el funnel real.
+
+| Evento | Se dispara con |
+|---|---|
+| `wsp_click` | cualquier link a `wa.me` |
+| `agenda_click` | cualquier link a la agenda de Dentalink |
+| `sede_maps_click` | cualquier link a Google Maps |
+
+El tracking va **por delegación** en `document` (`components/Analytics.tsx`), no con un
+`onClick` por botón: el mismo link aparece en el header, el hero, las cards de sede, el
+footer y la barra mobile. Así ninguno queda sin medir, ni los que se agreguen después.
+Cada evento manda `link_url`, `link_text` y `page_path`.
 
 ## Estructura
 
@@ -88,6 +110,12 @@ Están documentadas en el código, pero conviene saberlas antes de tocar nada:
 - **Se agregó lo que §7.4 y §7.5 marcaban como pendiente:** `:focus-visible` en todo
   elemento interactivo, `aria-expanded` en el menú y en el FAQ, cierre con `Esc`, foco
   atrapado y bloqueo de scroll del body.
+- **El mobile conserva todas las secciones del desktop.** El mockup mobile omite pilares,
+  «Tu experiencia», «Para informarte» y el panel de Equipo. Se interpretó como un mockup
+  abreviado y no como una directiva: servir contenido distinto por viewport perjudica el
+  SEO, y §2 dice «entre 390 y 1024 todo apila en una columna» — apila, no desaparece.
+  Si el cliente prefiere la home mobile corta, es sacar esas cuatro secciones de
+  `app/page.tsx`.
 
 ## Pendiente antes de publicar
 
@@ -104,8 +132,7 @@ Están documentadas en el código, pero conviene saberlas antes de tocar nada:
       Dentalink conviven profesionales reales con registros de demo (los de matrícula
       `MP 12.345 / 23.456 / 34.567` son correlativos y quedaron apartados en
       `teamPendingReview`).
-- [ ] `NEXT_PUBLIC_SITE_URL` en Vercel.
-- [ ] GA4 y los eventos `wsp_click`, `agenda_click`, `sede_maps_click` (§1).
+- [ ] `NEXT_PUBLIC_SITE_URL` y `NEXT_PUBLIC_GA_ID` en Vercel.
 
 ## QA
 
@@ -120,3 +147,6 @@ El checklist del §12 está verificado sobre el build de producción:
 - `prefers-reduced-motion` corta carrusel y marquesina
 - `rel="noopener noreferrer"` en todos los `target="_blank"`; iframes con `title` y `loading="lazy"`
 - LCP: primera foto del carrusel `eager` + `fetchPriority="high"`, las otras cinco `lazy`
+- Radios, paddings, hover, tamaños de logo y hamburguesa medidos contra §5/§6/§7 en ambos
+  breakpoints (el mobile baja un escalón: cards 18px, paneles 22px, mapa 14px)
+- Los tres eventos de conversión disparan con el destino correcto y los links internos no

@@ -15,17 +15,22 @@ import Image from 'next/image';
 type Props = {
   src: string;
   alt: string;
-  /** '16/10' · '16/9' · '4/3' · '1/0.98' … */
+  /** '16/10' · '16/9' · '4/3' … */
   ratio: string;
+  /** Proporción desde lg, cuando el diseño cambia el encuadre por breakpoint. */
+  ratioLg?: string;
   sizes: string;
   priority?: boolean;
   loading?: 'eager' | 'lazy';
   className?: string;
 };
 
-export function PhotoFrame({ src, alt, ratio, sizes, priority, loading, className = '' }: Props) {
+export function PhotoFrame({ src, alt, ratio, ratioLg, sizes, priority, loading, className = '' }: Props) {
   return (
-    <div className={`photo ${className}`} style={{ aspectRatio: ratio }}>
+    <div
+      className={`photo ${className}`}
+      style={{ '--ar': ratio, '--ar-lg': ratioLg ?? ratio } as React.CSSProperties}
+    >
       <Image
         src={src}
         alt={alt}

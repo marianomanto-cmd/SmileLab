@@ -5,6 +5,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { MobileActionBar } from '@/components/MobileActionBar';
 import { ToothClip } from '@/components/ToothClip';
+import { Analytics } from '@/components/Analytics';
 import { JsonLd, organizationSchema } from '@/lib/jsonld';
 import { site } from '@/content/site';
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <MobileActionBar />
         </div>
         <JsonLd data={organizationSchema()} />
+        <Analytics />
       </body>
     </html>
   );

@@ -25,14 +25,14 @@ export default function PacientesPage() {
 
       <div className="mt-10 grid gap-[18px] sm:grid-cols-2 lg:mt-[52px]">
         {experience.map((e) => (
-          <div key={e.title} className="card rounded-card-sm p-6 lg:p-[30px]">
+          <div key={e.title} className="card card-sm p-6 lg:p-[30px]">
             <h2 className="t-h3-post">{e.title}</h2>
             <p className="t-card-wide mt-2.5 text-muted">{e.body}</p>
           </div>
         ))}
       </div>
 
-      <div className="card mt-[18px] grid items-stretch overflow-hidden rounded-panel lg:grid-cols-2">
+      <div className="card panel mt-[18px] grid items-stretch overflow-hidden lg:grid-cols-2">
         <div className="self-center p-6 lg:p-[50px]">
           <h2 className="t-h2-panel">Odontopediatría con paciencia y cuidado</h2>
           <p className="t-body mt-4 text-muted">

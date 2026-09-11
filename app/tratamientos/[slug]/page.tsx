@@ -104,7 +104,7 @@ export default async function TreatmentPage({ params }: Params) {
             <Link
               key={t.slug}
               href={`/tratamientos/${t.slug}`}
-              className="card card-link rounded-card-sm p-6"
+              className="card card-link card-sm p-6"
             >
               <h3 className="t-h3-step">{t.name}</h3>
               <p className="t-card-dense mt-2 text-muted">{t.desc}</p>

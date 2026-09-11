@@ -63,7 +63,7 @@ export default function Home() {
       <section className="container-sl section-tight">
         <div className="grid gap-[18px] sm:grid-cols-3">
           {pillars.map((p) => (
-            <div key={p.kicker} className="card rounded-card-sm p-5 lg:p-7">
+            <div key={p.kicker} className="card card-sm p-5 lg:p-7">
               <div className="t-kicker-card">{p.kicker}</div>
               <h2 className="t-h3-post mt-3.5">{p.title}</h2>
               <p className="t-card mt-2.5 text-muted">{p.body}</p>
@@ -75,10 +75,10 @@ export default function Home() {
           href={links.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-[18px] flex items-center justify-between gap-4 rounded-card-sm bg-accent-soft px-5 py-5 font-display text-[17px] text-on-accent transition-colors hover:bg-accent-deep lg:px-[30px] lg:py-6 lg:text-[19px]"
+          className="card-sm mt-[18px] flex items-center justify-between gap-3 bg-accent-soft p-5 font-display text-[16px] text-on-accent transition-colors hover:bg-accent-deep lg:gap-4 lg:px-[30px] lg:py-6 lg:text-[19px]"
         >
           <span>¿Una consulta rápida? Escribinos por WhatsApp</span>
-          <span aria-hidden="true" className="text-xl">
+          <span aria-hidden="true" className="text-[18px] lg:text-xl">
             →
           </span>
         </a>
@@ -121,22 +121,23 @@ export default function Home() {
               <PhotoFrame
                 src={sede.photo.src}
                 alt={sede.photo.alt}
-                ratio="16/10"
+                ratio="16/9"
+                ratioLg="16/10"
                 sizes="(min-width: 1180px) 581px, (min-width: 768px) 50vw, 100vw"
               />
               <div className="flex flex-1 flex-col p-[22px] lg:p-7">
                 <div className="t-kicker-card">{sede.zone}</div>
-                <h3 className="t-h3-sede mt-3">{sede.name}</h3>
-                <p className="mt-2.5 text-[15.5px] leading-[1.65] text-muted">
+                <h3 className="t-h3-sede mt-2.5 lg:mt-3">{sede.name}</h3>
+                <p className="mt-2 text-[14.5px] leading-[1.65] text-muted lg:mt-2.5 lg:text-[15.5px]">
                   {sede.street}
                   <br />
                   {sede.barrio}
                 </p>
-                <a href={sede.tel} className="link-quiet t-sede-phone mt-3.5 inline-flex min-h-11 items-center">
+                <a href={sede.tel} className="link-quiet t-sede-phone mt-1.5 inline-flex min-h-11 items-center lg:mt-3.5">
                   {sede.phone}
                 </a>
                 <HoursList hours={sede.hours} />
-                <div className="mt-[22px] overflow-hidden rounded-map border border-line">
+                <div className="map-frame mt-[22px] border border-line">
                   <MapEmbed
                     src={sede.embed}
                     title={`Mapa de ${sede.name}`}
@@ -159,7 +160,7 @@ export default function Home() {
 
       {/* Cómo funciona ---------------------------------------------------- */}
       <section className="container-sl section">
-        <div className="rounded-panel bg-dark px-6 py-10 lg:px-[50px] lg:py-[58px]">
+        <div className="panel bg-dark px-[22px] py-[30px] lg:px-[50px] lg:py-[58px]">
           <div className="t-kicker text-accent">Cómo funciona</div>
           <h2 className="t-h2-section mt-4 text-white">
             Pedir turno es <Em tone="dark">simple</Em>.
@@ -217,7 +218,7 @@ export default function Home() {
           </div>
           <div className="grid gap-[18px] sm:grid-cols-2">
             {experience.map((e) => (
-              <div key={e.title} className="card rounded-card-sm p-5 lg:p-[26px]">
+              <div key={e.title} className="card card-sm p-5 lg:p-[26px]">
                 <h3 className="t-h3-step">{e.title}</h3>
                 <p className="t-card-dense mt-2.5 text-muted">{e.body}</p>
               </div>
@@ -248,7 +249,7 @@ export default function Home() {
 
       {/* Equipo ----------------------------------------------------------- */}
       <section className="container-sl section">
-        <div className="card grid items-stretch overflow-hidden rounded-panel lg:grid-cols-2">
+        <div className="card panel grid items-stretch overflow-hidden lg:grid-cols-2">
           <div className="self-center p-6 lg:p-[50px]">
             <Kicker>Equipo</Kicker>
             <h2 className="t-h2-panel mt-4">Un equipo enfocado en tu experiencia.</h2>
@@ -288,7 +289,7 @@ export default function Home() {
 
       {/* CTA final -------------------------------------------------------- */}
       <section className="container-sl section">
-        <div className="relative overflow-hidden rounded-panel bg-[linear-gradient(160deg,#cfe6e6_0%,#a9d3d5_100%)] px-6 py-12 text-center lg:px-[50px] lg:py-[70px]">
+        <div className="panel relative overflow-hidden bg-[linear-gradient(160deg,#cfe6e6_0%,#a9d3d5_100%)] px-[22px] py-9 text-center lg:px-[50px] lg:py-[70px]">
           <div
             aria-hidden="true"
             className="absolute inset-0 bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.12)_0_12px,transparent_12px_24px)] lg:bg-[repeating-linear-gradient(135deg,rgba(255,255,255,0.12)_0_14px,transparent_14px_28px)]"
@@ -297,7 +298,7 @@ export default function Home() {
             <h2 className="t-h2-section mx-auto max-w-[24ch]">
               ¿Querés consultar por tu <Em tone="plain">sonrisa</Em>?
             </h2>
-            <p className="mx-auto mt-[18px] max-w-[52ch] text-[16px] leading-[1.7] text-cta-body lg:text-[17.5px]">
+            <p className="mx-auto mt-3 max-w-[52ch] text-[15px] leading-[1.7] text-cta-body lg:mt-[18px] lg:text-[17.5px]">
               Escribinos por WhatsApp y coordinamos el turno que mejor se adapte a vos.
             </p>
             <div className="cta-group mt-8 sm:justify-center">

@@ -370,10 +370,43 @@
   /* ---------------------------------------------------------------------------
      Componentes
   --------------------------------------------------------------------------- */
+  /* En mobile el diseño baja un escalón todos los radios: cards 18px (no 22),
+     paneles 22px (no 28), mapa 14px (no 16). */
   .card {
     background: var(--color-surface);
     border: 1px solid var(--color-line);
-    border-radius: var(--radius-card);
+    border-radius: 18px;
+  }
+
+  .card-sm {
+    border-radius: 18px;
+  }
+
+  .panel {
+    border-radius: 22px;
+  }
+
+  .map-frame {
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  @media (min-width: 1024px) {
+    .card {
+      border-radius: var(--radius-card);
+    }
+
+    .card-sm {
+      border-radius: var(--radius-card-sm);
+    }
+
+    .panel {
+      border-radius: var(--radius-panel);
+    }
+
+    .map-frame {
+      border-radius: var(--radius-map);
+    }
   }
 
   .card-link {
@@ -392,6 +425,13 @@
     flex: 0 0 auto;
     background: var(--color-photo);
     overflow: hidden;
+    aspect-ratio: var(--ar);
+  }
+
+  @media (min-width: 1024px) {
+    .photo {
+      aspect-ratio: var(--ar-lg, var(--ar));
+    }
   }
 
   .photo > img {

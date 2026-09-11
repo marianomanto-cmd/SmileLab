@@ -25,16 +25,16 @@ export function ReviewsMarquee() {
             aria-hidden={clone || undefined}
             className="card m-0 flex w-[296px] shrink-0 flex-col p-[22px] lg:w-[394px] lg:p-7"
           >
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-3 lg:gap-3.5">
               <span
                 aria-hidden="true"
-                className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full bg-avatar-bg font-display text-[15px] tracking-[0.04em] text-avatar-ink lg:h-[52px] lg:w-[52px] lg:text-base"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-avatar-bg font-display text-sm tracking-[0.04em] text-avatar-ink lg:h-[52px] lg:w-[52px] lg:text-base"
               >
                 {initials(r.name)}
               </span>
               <div>
-                <div className="font-display text-base text-ink lg:text-[17px]">{r.name}</div>
-                <div className="mt-[3px] text-[13px] text-muted2 lg:text-[13.5px]">{r.city}</div>
+                <div className="font-display text-[15px] text-ink lg:text-[17px]">{r.name}</div>
+                <div className="mt-0.5 text-[12.5px] text-muted2 lg:mt-[3px] lg:text-[13.5px]">{r.city}</div>
               </div>
               {/* #8a6508 da 5.0:1 sobre blanco. No volver a #b8860b: queda en 3.3:1 (§3). */}
               <span
