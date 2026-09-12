@@ -566,17 +566,23 @@
 }
 
 /* §7.2 — lista duplicada, se traslada -50%: loop continuo sin salto. */
+/* La duración se ata a la cantidad de reseñas (--n) para que la velocidad de
+   lectura no cambie al sumar o sacar reseñas: ~32px/s en mobile, ~35px/s en
+   desktop. Con duración fija, más reseñas = pista más ancha = texto ilegible. */
 .marquee-track {
   display: flex;
+  /* Cada tarjeta a su propia altura. Con el stretch por defecto, la reseña más
+     larga estiraba a todas y las cortas quedaban con medio panel vacío. */
+  align-items: flex-start;
   gap: 14px;
   width: max-content;
-  animation: slmarquee 58s linear infinite;
+  animation: slmarquee calc(var(--n, 6) * 9.7s) linear infinite;
 }
 
 @media (min-width: 1024px) {
   .marquee-track {
     gap: 18px;
-    animation-duration: 70s;
+    animation-duration: calc(var(--n, 6) * 11.8s);
   }
   .marquee-track:hover {
     animation-play-state: paused;

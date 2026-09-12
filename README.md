@@ -119,12 +119,19 @@ Están documentadas en el código, pero conviene saberlas antes de tocar nada:
 
 ## Pendiente antes de publicar
 
-- [ ] **Reseñas reales.** Las 6 de `content/reviews.ts` son de muestra: los nombres de
-      pacientes y los textos son inventados (los profesionales sí son reales). Reemplazar
-      por reseñas de Google Business Profile vía API y poner `REVIEWS_ARE_REAL` en `true`.
-      Mientras el flag esté en `false` **no se emite JSON-LD de `Review` ni
-      `AggregateRating`**: publicar puntajes inventados como datos estructurados los mete
-      en el índice de Google como si fueran reales.
+- [x] ~~Reseñas reales~~ — hechas. Las 36 de `content/reviews.ts` son reseñas reales de
+      Google, transcriptas textualmente (sin editar ni corregir). Se muestran nombre,
+      puntaje, texto y antigüedad, con atribución a Google.
+- [ ] **Fotos de los autores.** Hoy no se muestran: solo se pueden obtener por la API de
+      Places. Los Knowledge Graph IDs de las sedes ya están identificados —
+      `/g/11fr2zkskc` (General Paz) y `/g/11xt3hyvvx` (Nueva Córdoba)— así que con una
+      `GOOGLE_PLACES_API_KEY` se conecta y además las mantiene actualizadas solas.
+      NO usar fotos de stock: poner la cara de un modelo junto al nombre de una persona
+      real es tergiversarla, y las licencias de stock prohíben implicar que el modelo fue
+      paciente.
+- [ ] **Dos reseñas quedaron afuera** porque en la captura estaban cortadas con «… Más»:
+      las de Wendi Romina Oroná y valentina cortese. Se agregan cuando esté el texto
+      completo.
 - [ ] **Fotos propias** para ortodoncia, blanqueamiento y dos de los artículos. Hoy son
       stock de Pexels servido desde `images.pexels.com` (§10). Conviene bajarlas y servirlas
       desde el propio dominio: hoy el sitio depende de un CDN de terceros para 8 imágenes.
@@ -150,3 +157,11 @@ El checklist del §12 está verificado sobre el build de producción:
 - Radios, paddings, hover, tamaños de logo y hamburguesa medidos contra §5/§6/§7 en ambos
   breakpoints (el mobile baja un escalón: cards 18px, paneles 22px, mapa 14px)
 - Los tres eventos de conversión disparan con el destino correcto y los links internos no
+
+## Por qué no hay JSON-LD de `Review`
+
+Las reseñas son reales, pero **no** se emite structured data de `Review` ni
+`AggregateRating`. Google prohíbe marcar como datos estructurados propios las reseñas
+tomadas de sitios de terceros — incluido el propio Google. Hacerlo es *self-serving review
+markup* y puede costar una acción manual. El flag está en `content/reviews.ts`
+(`EMIT_REVIEW_SCHEMA`).

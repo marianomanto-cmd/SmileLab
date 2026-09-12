@@ -30,7 +30,7 @@ export default function Home() {
           <div className="hero-text">
             <Kicker>Odontología en Córdoba</Kicker>
             <h1 className="t-h1-hero mt-3.5 max-w-[17ch] lg:mt-6">
-              Descubre la magia de una sonrisa <Em>perfecta</Em>.
+              Vive la magia de una sonrisa <Em>perfecta</Em>.
             </h1>
             <p className="t-lead mt-3.5 max-w-[32ch] font-display lg:mt-6">{site.tagline}</p>
             <p className="t-body-hero mt-3.5 max-w-[50ch] lg:mt-[22px]">{site.description}</p>
@@ -198,9 +198,6 @@ export default function Home() {
           <h2 className="t-h2-section mt-4 max-w-[26ch]">
             Lo que cuentan nuestros <Em>pacientes</Em>.
           </h2>
-          <p className="t-body mt-4 max-w-[56ch] text-muted">
-            Reseñas de personas que se atendieron en General Paz y Nueva Córdoba.
-          </p>
         </div>
         <ReviewsMarquee />
       </section>
