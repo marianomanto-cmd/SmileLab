@@ -129,9 +129,10 @@ Están documentadas en el código, pero conviene saberlas antes de tocar nada:
       NO usar fotos de stock: poner la cara de un modelo junto al nombre de una persona
       real es tergiversarla, y las licencias de stock prohíben implicar que el modelo fue
       paciente.
-- [ ] **Dos reseñas quedaron afuera** porque en la captura estaban cortadas con «… Más»:
-      las de Wendi Romina Oroná y valentina cortese. Se agregan cuando esté el texto
-      completo.
+Dos reseñas quedaron deliberadamente afuera: las de Wendi Romina Oroná y valentina
+cortese, que en la captura estaban cortadas con «… Más». Se descartan en vez de publicarse
+truncadas — una reseña cortada a mitad de frase se lee como un error, y completarla a ojo
+sería inventar. Si más adelante se conecta la API de Places entran solas y completas.
 - [ ] **Fotos propias** para ortodoncia, blanqueamiento y dos de los artículos. Hoy son
       stock de Pexels servido desde `images.pexels.com` (§10). Conviene bajarlas y servirlas
       desde el propio dominio: hoy el sitio depende de un CDN de terceros para 8 imágenes.

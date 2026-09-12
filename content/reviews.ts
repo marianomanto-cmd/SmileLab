@@ -14,8 +14,13 @@
  * atribución a Google en su lugar (que además es lo que piden sus términos).
  *
  * Las fotos de perfil de los autores viven en googleusercontent.com y solo se
- * pueden obtener por la API de Places. Mientras tanto el avatar son las
- * iniciales, como ya preveía el diseño.
+ * pueden obtener por la API de Places. NO reemplazarlas por fotos de stock:
+ * ponerle la cara de un modelo al nombre de una persona real la tergiversa, y
+ * las licencias de stock prohíben implicar que el modelo fue paciente.
+ *
+ * Quedan fuera a propósito las reseñas que Google mostraba truncadas con «… Más»
+ * (Wendi Romina Oroná, valentina cortese): publicarlas cortadas a mitad de frase
+ * se lee como un error, y completarlas a ojo sería inventar.
  */
 
 export type Review = {
